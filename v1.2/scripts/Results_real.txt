@@ -1,0 +1,49 @@
+========================================================================
+verify_js_bridge_v1.2.py
+Numerical verification of the KL-Fisher bridge to JS geometry
+Manuscript: Khomyakov (v1.2), DOI:     10.5281/zenodo.20412703
+========================================================================
+
+[Side check] Fisher information at theta_0* = 0
+I(theta_0*) =
+   [+2.500000e-01, +0.000000e+00, +0.000000e+00]
+   [+0.000000e+00, +5.000000e-01, +0.000000e+00]
+   [+0.000000e+00, +0.000000e+00, +5.000000e-01]
+Within-class block I_ww(0) =
+   [+5.000000e-01, +0.000000e+00]
+   [+0.000000e+00, +5.000000e-01]
+||I_ww(0) - (1/2) I_2||_F = 0.000e+00  (tolerance 1e-10)
+[OK] I_ww(0) = (1/2) I_2 confirmed.
+
+[Experiment 1] Lemma 3.1 (coefficient 1/8)
+  Wrote table_lemma_3_1.csv (18 rows).
+  delta_1_within_A1: eps=3.16e-04, ratio=1.0000004664, resid/eps^3=1.474795e-03
+  delta_2_within_A2: eps=3.16e-04, ratio=1.0000004664, resid/eps^3=1.474795e-03
+  delta_3_between: eps=3.16e-04, ratio=1.0000004664, resid/eps^3=2.949590e-03
+
+[Experiment 2] Theorem 4.1 / Corollary 6.1 / Remark 6.5
+  Wrote table_theorem_4_1.csv (4 rows).
+  eps=1.00e-01: V_ratio=0.99750632, d(pF,pG)/eps^2=1.4709e-03, d(pF,base)/eps^2=1.4709e-03
+  eps=3.16e-02: V_ratio=0.99975006, d(pF,pG)/eps^2=4.6335e-04, d(pF,base)/eps^2=4.6335e-04
+  eps=1.00e-02: V_ratio=0.99997500, d(pF,pG)/eps^2=2.8996e-04, d(pF,base)/eps^2=2.8996e-04
+  eps=3.16e-03: V_ratio=0.99999750, d(pF,pG)/eps^2=7.5662e-04, d(pF,base)/eps^2=7.5662e-04
+
+========================================================================
+EMPIRICAL SUMMARY (manuscript v1.2)
+========================================================================
+(a) Lemma 3.1 coefficient 1/8:
+    Ratio D_JS / [(eps^2/8) I_p(delta)] -> 1 as eps -> 0.
+      delta_1_within_A1: ratio at eps=10^-3.5 -> 1.0000004664
+      delta_2_within_A2: ratio at eps=10^-3.5 -> 1.0000004664
+      delta_3_between: ratio at eps=10^-3.5 -> 1.0000004664
+    CONFIRMED.
+(b) Remark 6.5 dispersion law V_N ~ (eps^2/16) sum w_i ||a_i - bar_a||^2:
+    V_N_ratio at eps=10^-2.5 -> 0.9999975000.
+    CONFIRMED.
+(c) Empirical order of d_JS(pF, pG) in eps:
+    log-log slope over [1.0e-01, 3.2e-03] -> 2.1925
+    Corollary 6.1 predicts O(eps^2); slope ~ 2 CONFIRMED.
+(d) Within-class Fisher block I_ww(0) verified:
+      ||I_ww(0) - (1/2) I_2||_F = 0.000e+00.
+========================================================================
+All numerical predictions agree with manuscript asymptotic statements.
